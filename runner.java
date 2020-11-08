@@ -8,8 +8,7 @@ The input file should have the requirements listed as the header.
 */
   public static void main(String[] args) {
 	  Packer pckr = new Packer("items.txt");
-	  pckr.read();
-	  //pckr.printItems();
+	  pckr.printItems();
   }
 }
 
