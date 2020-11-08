@@ -17,9 +17,6 @@ public class Packer {
         ItemList = new ArrayList<Item>();
         PackList = new ArrayList<Pack>();
         getData(rdr);
-        sort();
-        pack();
-
     }
 
     private enum Sort{
