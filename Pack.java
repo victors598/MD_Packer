@@ -40,13 +40,13 @@ public class Pack {
         boolean enoughSpace = item.getQty() <= this.space;
         boolean enoughWeight = totalWeight <= this.weightLeft;
 
+        int returnVal; //Outputs whether a new pack is needed or not.
+
         if(enoughSpace && enoughWeight){
             Items.add(new Item(item.getId(), item.getLen(), item.getQty(), item.getWeight())); // Clone the item into the list.
             this.space -= item.getQty();
             this.weightLeft -= totalWeight;
-            updateSize(item);
-
-            return 0; //return how many items were added.
+            returnVal = 0;
 
         } else {
             //Find the quantity of items the pack can handle based on weight
@@ -54,21 +54,22 @@ public class Pack {
 
             //Get the minimum amount of items that could be added.
             int toAdd = Math.min(this.space, qtyPerWeight);
+            returnVal = -1;
 
-            Items.add(new Item(item.getId(), item.getLen(), (item.getQty() - toAdd), item.getWeight())); // Clone the item into the list.
+            if(toAdd == 0){
+                return returnVal;
+            }
+
+            Items.add(new Item(item.getId(), item.getLen(), toAdd, item.getWeight())); // Clone the item into the list.
             this.space -= toAdd;
             this.weightLeft -= toAdd*item.getWeight();
             item.remove(toAdd);
 
-            updateSize(item);
-
-            return -1;
         }
-        //Four scenarios:
-        //1 = enough space and enough weight
-        //2 = enough space and not enough weight
-        //3 = not enough space and enough weight
-        //4 = not enough space and weight 
+
+        updateSize(item);
+
+        return returnVal;
     }
 
     

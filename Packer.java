@@ -83,6 +83,7 @@ public class Packer {
         while(it.hasNext()){
             Item item = it.next();
             
+
             while(pck.add(item) == -1){
                 pck = createPack();
             }
