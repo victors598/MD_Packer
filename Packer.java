@@ -5,20 +5,16 @@ public class Packer {
 /**This class contains the control flow for sorting the items in to the packs.*/
 
     private ArrayList<Item> ItemList;
+    private Sorter srtr; 
     private String sortOrd;
     private int maxPieces;
     private float maxWeight;
 
-    private enum Sort{
-        NATURAL, //Sort the data as it comes in
-        SHORT_LONG, //Sort the data from shortest to longest
-        LONG_SHORT //Sort the data from longest to shortest.
-
-    }
-
     public Packer(String fileName){ //Constructor
         Reader rdr = new Reader(fileName); //Read in data from the .txt file
         getData(rdr);
+
+        srtr = new Sorter(rdr);
 
     }
 

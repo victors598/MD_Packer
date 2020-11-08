@@ -1,5 +1,5 @@
 
-public class Item{
+public class Item implements Comparable<Item>{
 /*This is a class that models the items that will be input into the program. */
 
 	private int id;
@@ -37,6 +37,30 @@ public class Item{
 
 	public float getWeight(){
 		return this.weight;	
+	}
+
+	@Override
+	public int compareTo(Item o) {
+		/*Implements the comapreTo method so that a list of items can be sorted using the Collections.sort() method.
+		Without having to change all of my int to the deprecated Integer class.
+
+		Java's CompareTo Method Explanation: The java.lang.Integer.compareTo() method compares two Integer objects numerically. 
+		This method returns the value 0 if this Integer is equal to the argument Integer, a value less than 0 if this Integer 
+		is numerically less than the argument Integer and a value greater than 0 if this Integer is numerically greater than the argument Integer.
+		
+		*****Reference: https://www.tutorialspoint.com/java-integer-compareto-method*****
+		
+		*/
+		if(this.getLen() > o.getLen()){
+			//If the length of this item is longer than another items
+			return 1;
+		} else if(this.getLen() == o.getLen()){
+			//If the lengths of the two items are the same.
+			return 0;
+		} else {
+			//If the length of this item is less than the length of the other item.
+			return -1;
+		}
 	}
 
 }
