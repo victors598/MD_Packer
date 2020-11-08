@@ -21,23 +21,6 @@ public class Item implements Comparable<Item>{
 		this.qty = Integer.parseInt(props[2]);
 		this.weight = Float.parseFloat(props[3]);
 	}
-	
-	//========================================================Getters and Setters===================================================//
-	public int getId(){
-		return this.id;	
-	}
-
-	public float getLen(){
-		return this.len;	
-	}
-
-	public int getQty(){
-		return this.qty;	
-	}
-
-	public float getWeight(){
-		return this.weight;	
-	}
 
 	@Override
 	public int compareTo(Item o) {
@@ -61,6 +44,28 @@ public class Item implements Comparable<Item>{
 			//If the length of this item is less than the length of the other item.
 			return -1;
 		}
+	}
+
+	public void remove(int toRemove){
+		//Remove a given quantity of a particular item.
+		this.qty -= toRemove;
+	}
+	
+	//========================================================Getters and Setters===================================================//
+	public int getId(){
+		return this.id;	
+	}
+
+	public float getLen(){
+		return this.len;	
+	}
+
+	public int getQty(){
+		return this.qty;	
+	}
+
+	public float getWeight(){
+		return this.weight;	
 	}
 
 }
