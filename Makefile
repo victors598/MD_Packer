@@ -1,5 +1,5 @@
 all:
-	javac runner.java Item.java Packer.java Reader.java Sorter.java
+	javac runner.java Item.java Packer.java Reader.java
 
 run:
 	java runner

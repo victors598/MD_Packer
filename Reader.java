@@ -33,12 +33,15 @@ public class Reader {
 
             String data = myReader.nextLine(); //Read in the header
             parse(data); //Store the data in the header.
-            System.out.println(data); //Print out the header.
     
             while (myReader.hasNextLine()) { //Need to create a condition where it rejects a line if it is blank.
                 data = myReader.nextLine();
-                ItemList.add(new Item(data)); //Add the data from a file into a list.
-                
+
+                if(data.equals("")){ //If we encounter a blank line then we have reached the end of the file.
+                    break;
+                } else {
+                    ItemList.add(new Item(data)); //Add the data from a file into a list.
+                }
             }
             myReader.close(); //Close the file.
     

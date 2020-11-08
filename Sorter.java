@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 
 public class Sorter {
 
     private ArrayList<Item> ItemList;
+    private ArrayList<Pack> PackList;
     private Sort sortOrd;
     private int maxPieces;
     private float maxWeight;
@@ -17,8 +19,10 @@ public class Sorter {
 
     public Sorter(Reader rdr){
         ItemList = new ArrayList<Item>();
+        PackList = new ArrayList<Pack>();
         getData(rdr);
         sort();
+        pack();
     }
 
     private void getData(Reader rdr){
@@ -65,7 +69,23 @@ public class Sorter {
         }
     }
 
+    private Pack createPack(){
+        //Add a new pack to the list and then return a reference to this new pack.
+        PackList.add(new Pack(this.maxPieces, this.maxWeight));
+        return  PackList.get(PackList.size() - 1);
+    }
+
     private void pack(){
+        Iterator<Item> it = ItemList.iterator();
+        Pack pck = createPack();
+
+        while(it.hasNext()){
+            Item item = it.next();
+            
+            while(pck.add(item) == -1){
+                pck = createPack();
+            }
+        }
         
     }
 

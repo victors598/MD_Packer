@@ -3,7 +3,7 @@ public class Item implements Comparable<Item>{
 /*This is a class that models the items that will be input into the program. */
 
 	private int id;
-	private float len; //Length (mm)
+	private int len; //Length (mm)
 	private int qty; 
 	private float weight; //(kg, the weight of one item)
 
@@ -12,12 +12,19 @@ public class Item implements Comparable<Item>{
 
 	}
 
+	public Item(int id, int len, int qty, float weight){ //Another Constructor
+		this.id = id;
+		this.len = len;
+		this.qty = qty;
+		this.weight = weight;
+	}
+
 	private void parse(String line){
 	/*Parses out the data coming from the line in a file into the appropriate data type and variable*/
 		String[] props = line.split(",",4); //Limit of 4 is set because an Item only has 4 pieces of data.
 		
 		this.id = Integer.parseInt(props[0]); 
-		this.len = Float.parseFloat(props[1]);
+		this.len = Integer.parseInt(props[1]);
 		this.qty = Integer.parseInt(props[2]);
 		this.weight = Float.parseFloat(props[3]);
 	}
@@ -56,7 +63,7 @@ public class Item implements Comparable<Item>{
 		return this.id;	
 	}
 
-	public float getLen(){
+	public int getLen(){
 		return this.len;	
 	}
 

@@ -7,6 +7,8 @@ public class Pack {
     private int packId;
     private int space; //Tracks the number of pieces that can still fit in the pack.
     private float weightLeft; //Tracks the number of weight that can still fit into the pack.
+    private float maxWeight; //Stores the absolute maximum weight
+    private int packSize;
     private ArrayList<Item> Items;
 
     public Pack(int maxPieces, float maxWeight){ //Constructor.
@@ -19,6 +21,12 @@ public class Pack {
         this.space = maxPieces;
         this.weightLeft = maxWeight;
 
+        //Stores the value of the limit
+        this.maxWeight = maxWeight;
+
+        //Initializes the length of the pack to zero
+        packSize = 0;
+
         Items = new ArrayList<Item>();
     }
 
@@ -29,13 +37,14 @@ public class Pack {
 
         float totalWeight = item.getQty() * item.getWeight();
 
-        boolean enoughSpace = item.getQty() < this.space;
-        boolean enoughWeight = totalWeight < this.weightLeft;
+        boolean enoughSpace = item.getQty() <= this.space;
+        boolean enoughWeight = totalWeight <= this.weightLeft;
 
         if(enoughSpace && enoughWeight){
-            Items.add(item);
+            Items.add(new Item(item.getId(), item.getLen(), item.getQty(), item.getWeight())); // Clone the item into the list.
             this.space -= item.getQty();
             this.weightLeft -= totalWeight;
+            updateSize(item);
 
             return 0; //return how many items were added.
 
@@ -46,10 +55,12 @@ public class Pack {
             //Get the minimum amount of items that could be added.
             int toAdd = Math.min(this.space, qtyPerWeight);
 
-            Items.add(item);
+            Items.add(new Item(item.getId(), item.getLen(), (item.getQty() - toAdd), item.getWeight())); // Clone the item into the list.
             this.space -= toAdd;
             this.weightLeft -= toAdd*item.getWeight();
             item.remove(toAdd);
+
+            updateSize(item);
 
             return -1;
         }
@@ -58,6 +69,13 @@ public class Pack {
         //2 = enough space and not enough weight
         //3 = not enough space and enough weight
         //4 = not enough space and weight 
+    }
+
+    
+    private void updateSize(Item item){
+        if(item.getLen() > this.packSize){
+            packSize = item.getLen();
+        }
     }
 
 
@@ -72,5 +90,17 @@ public class Pack {
 
     public int getPackId(){
         return this.packId;
+    }
+
+    public ArrayList<Item> getItems(){
+        return this.Items;
+    }
+
+    public int getPackSize(){
+        return this.packSize;
+    }
+
+    public float getPackWeight(){
+        return maxWeight-weightLeft;
     }
 }
