@@ -10,13 +10,24 @@ requirements for each pack.
 The input file should have the requirements listed as the header. 
 */
   public static void main(String[] args) {
-    Packer pckr = new Packer("items.txt");
+
+    Packer pckr;
+
+    //Two ways to input the name of the file, either hardcode it inside the if statement.
+    //Or pass the file name in through a command line arguement, and it is passed into the else statement.
+    if(args.length == 0){
+      pckr = new Packer("items.txt"); //Change the string to the name of the file with the data
+    } else {
+      pckr = new Packer(args[0]);
+    }
+
     pckr.sort();
     pckr.pack();
 	  printResults(pckr);
   }
 
   public static void printResults(Packer pckr){
+    //Prints out the results of the packing system in the same format that was given in the .pdf.
     ArrayList<Pack> pl = pckr.getPackList();
 
     Iterator<Pack> plit = pl.iterator();
@@ -35,6 +46,7 @@ The input file should have the requirements listed as the header.
   }
 
   public static void printItems(ArrayList<Item> items){
+    //Print each item that have been added to a particular pack.
     Iterator<Item> it = items.iterator();
 
     while(it.hasNext()){

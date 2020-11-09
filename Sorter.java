@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.Iterator;
 
 public class Sorter {
-
+//Originally used this class to handle packing, however, I decided to move it into the Packer class.
     private ArrayList<Item> ItemList;
     private ArrayList<Pack> PackList;
     private Sort sortOrd;

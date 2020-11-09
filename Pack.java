@@ -32,8 +32,12 @@ public class Pack {
 
 
     public int add(Item item){
-        //First you need the space to actually put the stuff into the pack, then you need to know
-        //if you won't go over the limit.
+        /**
+         * A method that adds items to a pack. If the pack has enough space and the weight limit is not reached then
+         * it will add the item to the pack and return 0 (i.e. 0 = successfully added item and there is space left).
+         * If the pack does not have enough space, it adds enough of an item until it is full and then returns -1,
+         * indicating that it added some of the item but not all of it, and a new pack needs to be made.
+         */
 
         float totalWeight = item.getQty() * item.getWeight();
 
@@ -52,14 +56,16 @@ public class Pack {
             //Find the quantity of items the pack can handle based on weight
             int qtyPerWeight = (int)(weightLeft / item.getWeight());
 
-            //Get the minimum amount of items that could be added.
+            //Get the minimum amount of items that could be added to the pack before it becomes full.
             int toAdd = Math.min(this.space, qtyPerWeight);
             returnVal = -1;
 
-            if(toAdd == 0){
+            if(toAdd == 0){ //If there is nothing to add, then don't add anything.
                 return returnVal;
             }
 
+            //Add some quantity of the items to the pack, and then update the item to show that some of the item
+            //has been put into the pack.
             Items.add(new Item(item.getId(), item.getLen(), toAdd, item.getWeight())); // Clone the item into the list.
             this.space -= toAdd;
             this.weightLeft -= toAdd*item.getWeight();
@@ -74,6 +80,7 @@ public class Pack {
 
     
     private void updateSize(Item item){
+        //Updates the size of the pack each time an item is added that is longer than the current size of the pack.
         if(item.getLen() > this.packSize){
             packSize = item.getLen();
         }

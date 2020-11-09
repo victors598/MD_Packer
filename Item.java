@@ -12,7 +12,7 @@ public class Item implements Comparable<Item>{
 
 	}
 
-	public Item(int id, int len, int qty, float weight){ //Another Constructor
+	public Item(int id, int len, int qty, float weight){ //Another Constructor, mainly used to clone an exiting object.
 		this.id = id;
 		this.len = len;
 		this.qty = qty;

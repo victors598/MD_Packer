@@ -1,4 +1,5 @@
 public class test {
+  //tester class used to check some functionality.
   private enum Sort{
     NATURAL, //Sort the data as it comes in
     SHORT_TO_LONG, //Sort the data from shortest to longest

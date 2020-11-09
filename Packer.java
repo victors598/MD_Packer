@@ -77,12 +77,16 @@ public class Packer {
     }
 
     public void pack(){
+        /**
+         * This is a method to create and add items into packs. The method adds items to a pack until that pack is full.
+         * If the pack is full, then new packs are created until it has everything added to it.
+         * If a pack is not full it will be reused in the next iteration.
+         */
         Iterator<Item> it = ItemList.iterator();
         Pack pck = createPack();
 
         while(it.hasNext()){
             Item item = it.next();
-            
 
             while(pck.add(item) == -1){
                 pck = createPack();
@@ -106,6 +110,7 @@ public class Packer {
         }
     }
 
+    //=============================================Getters and Setters=============================================//
     public ArrayList<Pack> getPackList() {
         return PackList;
     }

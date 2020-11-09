@@ -10,7 +10,7 @@ public class Reader {
     private int maxPieces;
     private float maxWeight;
 
-    public Reader(String fileName){
+    public Reader(String fileName){ //Constructor.
         this.fileName = fileName;
         ItemList = new ArrayList<Item>();
         read();
@@ -27,6 +27,7 @@ public class Reader {
     }
 
     private void read(){
+        //Read in data from the file.
         try {
             File myObj = new File(this.fileName);
             Scanner myReader = new Scanner(myObj);
